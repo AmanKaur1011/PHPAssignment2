@@ -1,0 +1,29 @@
+ /* Styles for the youtube video position on the page  */
+.video-container {
+    position: relative;
+   
+    min-height: 360px;
+    overflow: hidden;
+    max-width: 640px;
+    background: #000;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.movies{
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
+}
+.movies:hover{
+    transform: scale(1.05); /* Slightly expand the card */
+}
+.songs{
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
+}
+.songs:hover{
+    
+    transform: scale(1.05); /* Slightly expand the card */
+}
