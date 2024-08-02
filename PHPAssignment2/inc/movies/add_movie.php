@@ -1,6 +1,6 @@
 <?php
 include('../../reusable/connect.php');
-
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate input
     $movieId = mysqli_real_escape_string($connect, $_POST['movieId']);

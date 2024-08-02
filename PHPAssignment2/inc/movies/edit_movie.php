@@ -1,6 +1,6 @@
 <?php
 include('../../reusable/connect.php');
-
+session_start();
 $id = $_GET['movieId'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

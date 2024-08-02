@@ -13,7 +13,7 @@
 <body>
     <?php
     include('reusable/connect.php');
-    
+    session_start();
     try {
         // SQL query to fetch all movies with their  song details
         $query = 'SELECT * FROM movies';
@@ -61,10 +61,12 @@
                            <i class="fa-solid fa-file-video"></i> <a href="movieDetail.php?movieId=' . htmlspecialchars($movie['movieId']) . '" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-bg-danger-subtle">' . htmlspecialchars($movie['movieName']) . '</a>
                         </div> -->
                         <div class="card-text mt-3 d-flex justify-content-between">
-                          <a href="movieDetail.php?movieId=' . htmlspecialchars($movie['movieId']) . '" class="btn btn-outline-primary ">Details</a>
-                          <a href="inc/movies/edit_movie.php?movieId=' . htmlspecialchars($movie['movieId']) . '" class="btn btn-outline-warning " data-bs-toggle="tooltip"  data-bs-title="Edit the Movie "><i class="fa-solid fa-pen-to-square"></i></a>
-                          <a href="inc/movies/movie_delete_confirm.php?movieId=' . htmlspecialchars($movie['movieId']) . '" class="btn btn-outline-danger " ><i class="fa-solid fa-trash"></i></a>
-                        </div>
+                          <a href="movieDetail.php?movieId=' . htmlspecialchars($movie['movieId']) . '" class="btn btn-outline-primary ">Details</a>';
+                           // Only show Edit and Delete buttons if admin is logged in
+                      if (isset($_SESSION['admin_id'])) {
+                         echo ' <a href="inc/movies/edit_movie.php?movieId=' . htmlspecialchars($movie['movieId']) . '" class="btn btn-outline-warning " data-bs-toggle="tooltip"  data-bs-title="Edit the Movie "><i class="fa-solid fa-pen-to-square"></i></a>
+                          <a href="inc/movies/movie_delete_confirm.php?movieId=' . htmlspecialchars($movie['movieId']) . '" class="btn btn-outline-danger " ><i class="fa-solid fa-trash"></i></a>';}
+                       echo ' </div>
                       </div>
                     </div>
                   </div>';

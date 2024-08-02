@@ -1,6 +1,6 @@
 <?php
 include('../../reusable/connect.php');
-
+session_start();
 if (isset($_GET['movieId'])) {
     $id = $_GET['movieId'];
 
@@ -12,27 +12,7 @@ if (isset($_GET['movieId'])) {
     $result = mysqli_stmt_get_result($stmt);
     $movie = mysqli_fetch_assoc($result);
     mysqli_stmt_close($stmt);
-    // $moviesQuery = "SELECT imagePath FROM  movies WHERE movieId = ?";
-    // $stmt = mysqli_prepare($connect, $moviesQuery);
     
-    // if ($stmt) {
-    //     mysqli_stmt_bind_param($stmt, "s", $id);
-    //     mysqli_stmt_execute($stmt);
-    //     $moviesResult = mysqli_stmt_get_result($stmt);
-
-    //     while ($movie = mysqli_fetch_assoc($moviesResult)) {
-    //         $relativeImagePath = $movie['imagePath'];
-    //         $actualImagePath = __DIR__ . "/../../" . $relativeImagePath;
-    //         if (file_exists($actualImagePath)) {
-    //             if (!unlink($actualImagePath)) {
-    //                 echo "Failed to delete image file: " . htmlspecialchars($actualImagePath);
-    //             }
-    //         }
-    //     }
-    //     mysqli_stmt_close($stmt);
-    // } else {
-    //     echo "Failed to prepare statement for fetching song images: " . mysqli_error($connect);
-    // }
 
     // Delete related songs
     $deleteSongsQuery = "DELETE FROM songs WHERE movieId = ?";

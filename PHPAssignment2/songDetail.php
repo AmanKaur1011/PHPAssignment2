@@ -12,6 +12,7 @@
 
 <body>
     <?php
+    session_start();
     //fetching  selected song information from the database
     include('reusable/connect.php');
     $id = $_GET['songId'];
@@ -42,15 +43,16 @@
                           <div><span class="badge bg-secondary fs-6 mb-3 fw-normal"> Release Date :  </span>  ' . '&nbsp; ' . $result['releaseDate'] . '</div>
                           <div><span class="badge bg-secondary fs-6 mb-3 fw-normal"> Singer :  </span>' . '&nbsp; ' . $result['singer'] . '</div>
                           <div><span class="badge bg-secondary fs-6 fw-normal"> Genre :  </span>' . '&nbsp; ' . $result['songGenre'] . '</div>
-                          <div class="mt-3"><span class="badge bg-secondary fs-6 fw-normal "> User Rating :  </span>' . '&nbsp; ' . $result['userRating'] .   '&nbsp; ' .'<span><i class="fa-solid fa-star text-warning"></i></span> </div>
-                      
-                        
-                          <!-- Add Edit and Delete buttons -->
-                          <div class="mt-4">
+                          <div class="mt-3"><span class="badge bg-secondary fs-6 fw-normal "> User Rating :  </span>' . '&nbsp; ' . $result['userRating'] .   '&nbsp; ' .'<span><i class="fa-solid fa-star text-warning"></i></span> </div>';
+                          //Add Edit and Delete buttons 
+                        // Only show Edit and Delete buttons if admin is logged in
+                if (isset($_SESSION['admin_id'])) {
+                          
+                          echo '<div class="mt-4">
                             <a href="inc/songs/edit_song.php?songId=' . $result['songId'] . '" class="btn btn-outline-warning me-2">Edit Song</a>
                             <!--  <a href="delete_song.php?songId=' . $result['songId'] . '" class="btn btn-outline-danger" onclick="return confirm(\'Are you sure you want to delete this song?\')">Delete Song</a> -->
-                            <a href="inc/songs/song_delete_confirm.php?songId=' . $result['songId'] . '" class="btn btn-outline-danger">Delete Song</a>
-                            </div>
+                            <a href="inc/songs/song_delete_confirm.php?songId=' . $result['songId'] . '" class="btn btn-outline-danger">Delete Song</a>';}
+                          echo ' </div>
                         </div>
                      
                       ';

@@ -11,6 +11,7 @@
 
 <body>
     <?php
+    session_start();
     include('reusable/connect.php');
     $id = $_GET['movieId'];
     $query = "SELECT * FROM movies WHERE movieId = '$id'";
@@ -31,13 +32,15 @@
                         <p>' . $result['overview'] . '</p>
                         <p><span class="badge bg-secondary fs-6 mb-3 fw-normal"> Director :  </span> '.'&nbsp; ' . $result['director'] . '</p>
                         <p><span class="badge bg-secondary fs-6 mb-3 fw-normal"> Cast :  </span>' .'&nbsp; '. $result['cast'] . '</p>
-                        <p><span class="badge bg-secondary fs-6 mb-3 fw-normal"> Genre :  </span> ' .'&nbsp; '. $result['genre'] . '</p>
+                        <p><span class="badge bg-secondary fs-6 mb-3 fw-normal"> Genre :  </span> ' .'&nbsp; '. $result['genre'] . '</p>';
                         
-                        <!-- Add Edit and Delete buttons -->
-                        <div class="mt-4">
+                        //Add Edit and Delete buttons 
+                        // Only show Edit and Delete buttons if admin is logged in
+                      if (isset($_SESSION['admin_id'])) {
+                        echo '<div class="mt-4">
                           <a href="inc/movies/edit_movie.php?movieId=' . $result['movieId'] . '" class="btn btn-outline-warning me-2">Edit Movie</a>
-                          <a href="inc/movies/delete_movie.php?movieId=' . $result['movieId'] . '" class="btn btn-outline-danger" onclick="return confirm(\'Are you sure you want to delete this movie? This will also delete all associated songs.\')">Delete Movie</a>
-                        </div>
+                          <a href="inc/movies/delete_movie.php?movieId=' . $result['movieId'] . '" class="btn btn-outline-danger" onclick="return confirm(\'Are you sure you want to delete this movie? This will also delete all associated songs.\')">Delete Movie</a>';}
+                       echo ' </div>
                       </div>';
                 ?>
             </div>

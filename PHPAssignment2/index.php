@@ -6,6 +6,7 @@
 
 // Include the database connection file
 require_once('reusable/connect.php');
+session_start();
 
 // Check if the database connection is established
 if (!isset($connect) || !($connect instanceof mysqli)) {
@@ -36,10 +37,12 @@ function displaySongs($songs, $year)
                           <i class="fa-solid fa-file-video"></i> <a href="movieDetail.php?movieId=' . htmlspecialchars($song['movieId']) . '" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-bg-danger-subtle">' . htmlspecialchars($song['movieName']) . '</a>
                         </div>
                         <div class="card-text mt-3 d-flex justify-content-between">
-                          <a href="songDetail.php?songId=' . htmlspecialchars($song['songId']) . '" class="btn btn-outline-primary ">Details</a>
-                          <a href="inc/songs/edit_song.php?songId=' . htmlspecialchars($song['songId']) . '" class="btn btn-outline-warning " data-bs-toggle="tooltip"  data-bs-title="Edit the Song "><i class="fa-solid fa-pen-to-square"></i></a>
-                          <a href="inc/songs/song_delete_confirm.php?songId=' . htmlspecialchars($song['songId']) . '" class="btn btn-outline-danger " ><i class="fa-solid fa-trash"></i></a>
-                        </div>
+                          <a href="songDetail.php?songId=' . htmlspecialchars($song['songId']) . '" class="btn btn-outline-primary ">Details</a>';
+                          // Only show Edit and Delete buttons if admin is logged in
+                        if (isset($_SESSION['admin_id'])) {
+                          echo '<a href="inc/songs/edit_song.php?songId=' . htmlspecialchars($song['songId']) . '" class="btn btn-outline-warning " data-bs-toggle="tooltip"  data-bs-title="Edit the Song "><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="inc/songs/song_delete_confirm.php?songId=' . htmlspecialchars($song['songId']) . '" class="btn btn-outline-danger " ><i class="fa-solid fa-trash"></i></a>';}
+                  echo '</div>
                       </div>
                     </div>
                   </div>';
@@ -75,9 +78,16 @@ function displaySongs($songs, $year)
       <!-- Navigation buttons -->
       <div class="row mb-4">
         <div class="col">
+        <a href="moviesList.php" class="btn btn-secondary me-2">View all Movies <i class="fa-solid fa-film"></i></a> 
+        <?php if (isset($_SESSION['admin_id'])): ?>
           <a href="inc/songs/add_song.php" class="btn btn-primary me-2">Add New Song</a>
           <a href="inc/movies/add_movie.php" class="btn btn-success me-2">Add New Movie</a>
-          <a href="moviesList.php" class="btn btn-secondary">View all Movies <i class="fa-solid fa-film"></i></a>
+          <a class="btn btn-danger" href="logout.php">Logout</a>
+          <?php else: ?>
+            <a  class="btn btn-danger" href="login.php">Admin Login</a>
+          <?php endif; ?>
+          
+        
         </div>
       </div>
     </div>

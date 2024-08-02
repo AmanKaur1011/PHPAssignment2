@@ -1,6 +1,6 @@
 <?php 
 include('../../reusable/connect.php');
-
+session_start();
 if (isset($_GET['movieId'])) {
     $id = $_GET['movieId'];
 

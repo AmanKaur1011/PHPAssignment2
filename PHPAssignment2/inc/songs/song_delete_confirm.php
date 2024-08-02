@@ -1,5 +1,6 @@
 <?php 
 include('../../reusable/connect.php');
+session_start();
 if (isset($_GET['songId'])) {
     $id = $_GET['songId'];
 
